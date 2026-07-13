@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RETRO SYNTH — Mac System 6 pixel-perfect 8-bit JSFXR synthesizer.">
+  <title>RETRO SYNTH | 8-Bit Sound Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="mac-shell">
+
+    <div class="mac-screen">
+
+      <!-- ╔══════════════════════════════════════════════╗ -->
+      <!-- ║  JSFXR SYNTHESIZER — fills the full desktop  ║ -->
+      <!-- ╚══════════════════════════════════════════════╝ -->
+      <div class="mac-window" id="synth-window">
+
+        <div class="mac-titlebar">
+          <span class="mac-title-text">JSFXR SYNTHESIZER</span>
+          <span class="mac-close-box">✕</span>
+        </div>
+
+        <div class="mac-window-body synth-layout">
+
+          <!-- ── PANEL A: Oscilloscope + Wave + Presets ── -->
+          <div class="panel panel-a">
+
+            <div class="mac-group-label">OSCILLOSCOPE</div>
+            <div class="oscilloscope-wrap">
+              <canvas id="waveform"></canvas>
+            </div>
+
+            <div class="mac-group-label">WAVE TYPE</div>
+            <div class="wave-shape">
+              <label class="mac-radio"><input type="radio" name="wave_type" value="0" checked> Square</label>
+              <label class="mac-radio"><input type="radio" name="wave_type" value="1"> Sawtooth</label>
+              <label class="mac-radio"><input type="radio" name="wave_type" value="2"> Sine</label>
+              <label class="mac-radio"><input type="radio" name="wave_type" value="3"> Noise</label>
+            </div>
+
+            <div class="mac-group-label">PRESETS</div>
+            <div class="generator-grid">
+              <button class="mac-btn gen-btn" data-gen="pickupCoin">Pickup</button>
+              <button class="mac-btn gen-btn" data-gen="laserShoot">Laser</button>
+              <button class="mac-btn gen-btn" data-gen="explosion">Explode</button>
+              <button class="mac-btn gen-btn" data-gen="powerUp">PowerUp</button>
+              <button class="mac-btn gen-btn" data-gen="hitHurt">Hit/Hurt</button>
+              <button class="mac-btn gen-btn" data-gen="jump">Jump</button>
+              <button class="mac-btn gen-btn" data-gen="blipSelect">Blip</button>
+              <button class="mac-btn gen-btn" data-gen="synth">Synth</button>
+            </div>
+            <button class="mac-btn gen-btn mac-btn-full" data-gen="random">⟳ MUTATE</button>
+
+            <button id="play-btn" class="mac-btn mac-play-btn">▶ PLAY SOUND</button>
+
+          </div>
+
+          <!-- ── PANEL B: Left slider column ── -->
+          <div class="panel panel-b">
+            <div class="mac-group-label">ENVELOPE / FREQUENCY</div>
+            <div class="sliders-col" id="sliders-col-1"></div>
+          </div>
+
+          <!-- ── PANEL C: Right slider column ── -->
+          <div class="panel panel-c">
+            <div class="mac-group-label">MODULATION / FILTER</div>
+            <div class="sliders-col" id="sliders-col-2"></div>
+          </div>
+
+        </div>
+      </div><!-- end #synth-window -->
+
+      <!-- Taskbar -->
+      <div class="mac-taskbar">
+        <div class="taskbar-left">
+          <span class="taskbar-apple">■</span>
+          <span class="taskbar-label">JSFXR SYNTHESIZER</span>
+        </div>
+        <span class="taskbar-status" id="tb-status">READY</span>
+        <span class="taskbar-clock" id="mac-clock">00:00:00</span>
+      </div>
+
+    </div><!-- end .mac-screen -->
+
+    <div class="mac-chin">
+      <div class="mac-vents">
+        <div class="mac-vent"></div>
+        <div class="mac-vent"></div>
+        <div class="mac-vent"></div>
+      </div>
+      <div class="mac-logo">RETRO&nbsp;SYNTH</div>
+      <div class="mac-power-btn"></div>
+    </div>
+
+  </div><!-- end .mac-shell -->
+
+  <script src="script.js"></script>
+</body>
+</html>
