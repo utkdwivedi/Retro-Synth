@@ -1,0 +1,335 @@
+/* ═══════════════════════════════════════════════════════════
+   RETRO SYNTH — Mac System 6 · Full-screen JSFXR
+   Pure CSS · Zero hotlinked images · Strict 2-color palette
+   ═══════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* ── Design tokens ────────────────────────────────────────── */
+:root {
+  --cream:   #d4cfc0;
+  --off-wht: #dedad0;
+  --light:   #eae6d8;
+  --dark:    #26222e;
+  --black:   #1a1618;
+  --mid:     #8a8578;
+  --hi:      #f0ece0;   /* raised bevel highlight edge */
+  --sh:      #7a7668;   /* raised bevel shadow edge    */
+  --ph:      #39ff14;   /* phosphor green              */
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  background: #100e14;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Press Start 2P', monospace;
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════
+   MAC OUTER SHELL
+   ═══════════════════════════════════════════ */
+.mac-shell {
+  width:  min(99vw, 1120px);
+  height: min(97vh, 800px);
+  background: var(--cream);
+  border-radius: 14px 14px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 16px 0;
+  box-shadow:
+    inset  3px  3px 0 var(--hi),
+    inset -3px -3px 0 var(--sh),
+    0 0 0 2px var(--black),
+    6px 8px 0 #000;
+  position: relative;
+}
+/* Corner dither dots */
+.mac-shell::before,
+.mac-shell::after {
+  content: '';
+  position: absolute;
+  width: 10px; height: 10px; top: 5px;
+  background-image: repeating-conic-gradient(var(--black) 0% 25%, var(--cream) 0% 50%);
+  background-size: 2px 2px;
+}
+.mac-shell::before { left: 5px; }
+.mac-shell::after  { right: 5px; }
+
+/* ═══════════════════════════════════════════
+   SCREEN
+   ═══════════════════════════════════════════ */
+.mac-screen {
+  flex: 1;
+  background: var(--dark);
+  border: 3px solid var(--black);
+  box-shadow:
+    inset  2px  2px 0 #0d0a12,
+    inset -2px -2px 0 #3a3548;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+/* Dither border inside screen */
+.mac-screen::before {
+  content: '';
+  position: absolute; inset: 0;
+  pointer-events: none; z-index: 50;
+  border: 6px solid transparent;
+  border-image: repeating-conic-gradient(var(--black) 0% 25%, var(--dark) 0% 50%) 4 / 4px;
+}
+
+/* ═══════════════════════════════════════════
+   MAC WINDOW — fills the whole screen
+   ═══════════════════════════════════════════ */
+.mac-window {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin: 6px;               /* small gap from screen edge */
+  background: var(--off-wht);
+  border: 2px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+}
+
+/* ── Title bar ──────────────────────────── */
+.mac-titlebar {
+  height: 22px;
+  flex-shrink: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    var(--black)             0px, var(--black)             1px,
+    rgba(212,207,192,0.32)   1px, rgba(212,207,192,0.32)   2px
+  );
+  border-bottom: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.mac-title-text {
+  font-size: 9px;
+  color: var(--cream);
+  letter-spacing: 0.06em;
+  background: var(--black);
+  padding: 2px 12px;
+}
+.mac-close-box {
+  position: absolute; right: 4px; top: 3px;
+  width: 14px; height: 14px;
+  background: var(--cream);
+  border: 1px solid var(--black);
+  font-size: 8px; font-family: monospace;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--black);
+}
+.mac-close-box:hover { background: var(--black); color: var(--cream); }
+
+/* ── Window body ────────────────────────── */
+.mac-window-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  padding: 10px;
+  gap: 10px;
+  background: var(--off-wht);
+}
+
+/* ═══════════════════════════════════════════
+   TASKBAR
+   ═══════════════════════════════════════════ */
+.mac-taskbar {
+  height: 22px; flex-shrink: 0;
+  background: var(--cream);
+  border-top: 2px solid var(--black);
+  display: flex; align-items: center;
+  padding: 0 8px; gap: 10px;
+}
+.taskbar-left   { display: flex; align-items: center; gap: 8px; }
+.taskbar-apple  { font-size: 12px; }
+.taskbar-label  { font-size: 7px; color: var(--black); letter-spacing: 0.05em; }
+.taskbar-status { flex: 1; font-size: 7px; color: var(--mid); text-align: center; }
+.taskbar-clock  { font-size: 7px; color: var(--black); white-space: nowrap; }
+
+/* ═══════════════════════════════════════════
+   CHIN
+   ═══════════════════════════════════════════ */
+.mac-chin {
+  height: 52px; flex-shrink: 0;
+  background: var(--cream);
+  border-top: 2px solid var(--sh);
+  border-radius: 0 0 10px 10px;
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+.mac-vents     { display: flex; flex-direction: column; gap: 5px; }
+.mac-vent      { width: 44px; height: 3px; background: var(--sh); box-shadow: 0 -1px 0 var(--hi); }
+.mac-logo      { font-size: 7px; color: var(--sh); letter-spacing: 0.15em; text-align: center; line-height: 1.9; }
+.mac-power-btn {
+  width: 15px; height: 15px; border-radius: 50%;
+  border-top: 2px solid var(--sh); border-left: 2px solid var(--sh);
+  border-bottom: 2px solid var(--hi); border-right: 2px solid var(--hi);
+  background: var(--cream);
+}
+
+/* ═══════════════════════════════════════════
+   SHARED WIDGETS
+   ═══════════════════════════════════════════ */
+.mac-group-label {
+  font-size: 7px; color: var(--black);
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 3px; margin-bottom: 7px;
+}
+
+/* Raised bevel button */
+.mac-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px; color: var(--black);
+  background: var(--cream);
+  border-top:    2px solid var(--hi);
+  border-left:   2px solid var(--hi);
+  border-bottom: 2px solid var(--sh);
+  border-right:  2px solid var(--sh);
+  padding: 6px 4px;
+  cursor: pointer; text-align: center;
+  line-height: 1.4; letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+.mac-btn:hover  { background: var(--off-wht); }
+.mac-btn:active {
+  border-top:    2px solid var(--sh); border-left:   2px solid var(--sh);
+  border-bottom: 2px solid var(--hi); border-right:  2px solid var(--hi);
+  transform: translate(1px, 1px);
+}
+
+/* Mac radio */
+.mac-radio {
+  font-size: 7px; color: var(--black);
+  display: flex; align-items: center; gap: 6px; cursor: pointer;
+}
+.mac-radio input[type=radio] { accent-color: var(--black); width: 10px; height: 10px; }
+
+/* Mac scrollbars */
+::-webkit-scrollbar        { width: 14px; }
+::-webkit-scrollbar-track  { background: var(--off-wht); border-left: 1px solid var(--black); }
+::-webkit-scrollbar-thumb  {
+  background: var(--cream); border: 1px solid var(--black); border-radius: 0;
+  box-shadow: inset 1px 1px 0 var(--hi), inset -1px -1px 0 var(--sh);
+}
+::-webkit-scrollbar-button { background: var(--cream); border: 1px solid var(--black); height: 14px; }
+
+/* ═══════════════════════════════════════════
+   FULL-SCREEN SYNTH LAYOUT  (3 panels)
+   ═══════════════════════════════════════════ */
+.synth-layout {
+  flex-direction: row;
+  align-items: stretch;
+}
+
+/* ── Panel A: Oscilloscope + Presets ──────── */
+.panel { display: flex; flex-direction: column; gap: 8px; }
+
+.panel-a {
+  width: 200px;
+  flex-shrink: 0;
+  border-right: 2px solid var(--black);
+  padding-right: 10px;
+}
+
+/* Oscilloscope */
+.oscilloscope-wrap {
+  background: #000;
+  border-top:    2px solid var(--sh);
+  border-left:   2px solid var(--sh);
+  border-bottom: 2px solid var(--hi);
+  border-right:  2px solid var(--hi);
+  padding: 3px;
+  line-height: 0;
+}
+#waveform {
+  display: block;
+  width: 100%;
+  height: 120px;     /* bigger — more room now */
+  background: #000;
+}
+
+/* Wave shape */
+.wave-shape { display: flex; flex-direction: column; gap: 5px; }
+
+/* 2×4 preset grid */
+.generator-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+.mac-btn-full { width: 100%; }
+
+/* Big play button */
+.mac-play-btn {
+  font-size: 8px;
+  padding: 10px 4px;
+  margin-top: auto;
+  border: 2px solid var(--black);
+  border-top: 2px solid var(--hi);
+  border-left: 2px solid var(--hi);
+}
+
+/* ── Panel B & C: Slider columns ──────────── */
+.panel-b, .panel-c {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+.panel-b { padding-right: 8px; border-right: 1px solid var(--mid); }
+.panel-c { padding-left: 8px; }
+
+.sliders-col {
+  overflow-y: auto;
+  height: calc(100% - 22px);   /* subtract label height */
+  padding-right: 2px;
+}
+
+/* slider-row elements injected by script.js */
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px dotted rgba(26,22,24,0.18);
+}
+.slider-row label {
+  font-size: 6px; color: var(--black);
+  width: 90px; flex-shrink: 0; line-height: 1.7;
+}
+.slider-row input[type=range] {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 10px;
+  background: var(--off-wht);
+  border-top:    1px solid var(--sh);
+  border-left:   1px solid var(--sh);
+  border-bottom: 1px solid var(--hi);
+  border-right:  1px solid var(--hi);
+  border-radius: 0; outline: none;
+}
+.slider-row input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px; height: 20px;
+  background: var(--cream);
+  border-top:    2px solid var(--hi); border-left:   2px solid var(--hi);
+  border-bottom: 2px solid var(--sh); border-right:  2px solid var(--sh);
+  border-radius: 0; cursor: pointer;
+}
+.slider-val {
+  font-size: 6px; width: 34px;
+  text-align: right; color: var(--black); flex-shrink: 0;
+}
