@@ -8,7 +8,7 @@ Retro-Synth uses a JavaScript implementation of **sfxr-style procedural sound ge
 
 ## 🚀 Live Demo
 
-🔗 https://utkarshd.github.io/Retro-Synth/
+🔗 https://utkdwivedi.github.io/Retro-Synth/
 
 > Enable GitHub Pages from **Settings → Pages → Deploy from a branch → main → / (root)**.
 
@@ -22,7 +22,7 @@ Retro-Synth uses a JavaScript implementation of **sfxr-style procedural sound ge
 ## 🧪 Run Locally
 
 ```bash
-git clone https://github.com/utkarshd/Retro-Synth.git
+git clone https://github.com/utkdwivedi/Retro-Synth.git
 cd Retro-Synth
 ```
 
